@@ -38,7 +38,9 @@ module.exports = function (config) {
       'background-src': React.PropTypes.string,
       // optional props
       alt: React.PropTypes.string,
-      className: React.PropTypes.string
+      className: React.PropTypes.string,
+      onLoad: React.PropTypes.func,
+      onError: React.PropTypes.func
     },
 
     componentDidMount: function () {
@@ -70,7 +72,9 @@ module.exports = function (config) {
       return {
         className: imgr.className,
         src: imgr.gif.src,
-        alt: imgr.gif.src
+        alt: imgr.gif.src,
+        onLoad: function() {},
+        onError: function() {}
       };
     },
 
@@ -111,8 +115,14 @@ module.exports = function (config) {
       }
       // Image element
       else {
-        return (<img src={imageSrc} className={this.props.className} data-src={this.props.src} alt={this.props.alt} />);
-
+        return <img
+          src={imageSrc}
+          className={this.props.className}
+          data-src={this.props.src}
+          alt={this.props.alt}
+          onLoad={this.props.onLoad}
+          onError={this.props.onError}
+        />
       }
     }
   });
